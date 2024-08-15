@@ -25,6 +25,6 @@ jobs:
               run: |
                 msg="@anbox-team Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
                 curl -i -X POST \
-                  -H 'Content-Type':application/json' \
+                  -H 'Content-Type:application/json' \
                   -d "{\"text\": \"$msg\"}" \
                   "$WEBHOOK_URL"
