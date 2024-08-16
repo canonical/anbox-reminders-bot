@@ -1,30 +1,22 @@
 name: Backlog grooming reminder
 on:
     schedule:
-        - cron: "35 11 * * *"
+        - cron: "*/15 * * * *"
 
 jobs:
-    check-week:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check if it is second week of a pulse
-              run: |
-                WEEK=`date +"%V"`
-                if [ $(($WEEK%2)) -eq 0 ]; 
-                then
-                  echo "This is the second week of a pulse. Aborting."
-                  exit 1
-                fi
     send-reminder:
-        needs: check-week
         runs-on: ubuntu-latest
         steps:
             - name: Send backlog grooming reminder
               env:
                 WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
               run: |
-                msg="@anbox-team Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
-                curl -i -X POST \
-                  -H 'Content-Type:application/json' \
-                  -d "{\"text\": \"$msg\"}" \
-                  "$WEBHOOK_URL"
+                WEEK=`date +"%V"`
+                if [ $(($WEEK%2)) -eq 1 ];
+                then
+                  msg="@anbox-team Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
+                  curl -i -X POST \
+                    -H 'Content-Type:application/json' \
+                    -d "{\"text\": \"$msg\"}" \
+                  "  $WEBHOOK_URL"
+                fi
