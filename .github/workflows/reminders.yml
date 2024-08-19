@@ -26,26 +26,26 @@ jobs:
                 then
                   if [ $(($WEEK_DAY_NUM)) -eq 1 ];  # Monday
                   then
-                    msg="@anbox-team Please publish pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
+                    msg="@anbox-core Please publish pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
                     send_mattermost_msg "$msg"
                   fi
                 else  # Second week of the pulse
                   if [ $(($WEEK_DAY_NUM)) -eq 2 ];  # Tuesday
                   then
-                    msg="@anbox-team Please create pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
+                    msg="@anbox-core Please create pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
                     send_mattermost_msg "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 3 ];  # Wednesday
                   then
-                    msg="@anbox-team Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
+                    msg="@anbox-core Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
                     send_mattermost_msg "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 5 ];  # Friday
                   then
-                    msg="@anbox-team Have you prepared for upcoming sprint planning?\n- Create stories for any ad hoc work\n- Review the fix-version for your stories and if they are aligned with the target release\n- Account for time off\n- Assess if you have too much or too little work for the pulse"
+                    msg="@anbox-core Have you prepared for upcoming sprint planning?\n- Create stories for any ad hoc work\n- Review the fix-version for your stories and if they are aligned with the target release\n- Account for time off\n- Assess if you have too much or too little work for the pulse"
                     send_mattermost_msg "$msg"
                     sleep 30
-                    msg="@anbox-team Have you filled the pulse report?"
+                    msg="@anbox-core Have you filled the pulse report?"
                     send_mattermost_msg "$msg"
                   fi
                 fi
