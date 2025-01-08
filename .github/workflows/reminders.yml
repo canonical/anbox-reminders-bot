@@ -22,7 +22,7 @@ jobs:
                     "$WEBHOOK_URL"                
                 }
                 
-                if [ $(($WEEK_NUM % 2)) -eq 0 ];  # First week of the pulse
+                if [ $(($WEEK_NUM % 2)) -eq 0 ];  # First week of the pulse. The first pulse of 2025 started in an even week.
                 then
                   if [ $(($WEEK_DAY_NUM)) -eq 1 ];  # Monday
                   then
