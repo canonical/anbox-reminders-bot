@@ -51,7 +51,7 @@ jobs:
                   if [ $(($WEEK_DAY_NUM)) -eq 4 ];  # Thursday
                   then
                     msg="@anbox-team It's pulse demo time tomorrow. As usual everyone is welcome to demo their work, small or big. Please add yourself to the list BEFORE the meeting so we can start on time. You can also add highlights of this pulse's work too. Looking forward to all the great demos!"
-                    send_mattermost_msg "$msg"
+                    send_pulse_demo_reminder "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 5 ];  # Friday
                   then
