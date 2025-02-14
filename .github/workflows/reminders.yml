@@ -1,4 +1,4 @@
-name: Send Anbox pulse reminders
+name: Send Anbox team reminders
 on:
     schedule:
         - cron: "41 8 * * 1,2,3,5"
@@ -7,19 +7,20 @@ jobs:
     send-reminder:
         runs-on: ubuntu-latest
         steps:
-            - name: Send Anbox pulse reminders
+            - name: Send Anbox team reminders
               env:
-                WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+                MM_CORE_TEAM_WEBHOOK: ${{ secrets.MM_CORE_TEAM_WEBHOOK }}
+                MM_PULSE_DEMO_WEBHOOK: ${{secrets.MM_PULSE_DEMO_WEBHOOK}}
               run: |
                 WEEK_NUM=`date +"%V"`
                 WEEK_DAY_NUM=`date +"%u"`
                 
-                function send_mattermost_msg() {
+                function send_coreteam_reminder() {
                   msg="$1"
                   curl -i -X POST \
                     -H 'Content-Type:application/json' \
                     -d "{\"text\": \"$msg\"}" \
-                    "$WEBHOOK_URL"                
+                    "$MM_CORE_TEAM_WEBHOOK"                
                 }
 
                 function send_pulse_demo_reminder(){
@@ -35,31 +36,31 @@ jobs:
                   if [ $(($WEEK_DAY_NUM)) -eq 1 ];  # Monday
                   then
                     msg="@anbox-core Please publish pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
-                    send_mattermost_msg "$msg"
+                    send_coreteam_reminder "$msg"
                   fi
                 else  # Second week of the pulse
                   if [ $(($WEEK_DAY_NUM)) -eq 2 ];  # Tuesday
                   then
                     msg="@anbox-core Please create pulse report as per [pulse duties rotation](https://docs.google.com/spreadsheets/d/1x8MOJXO1hy0uQmeKsTDGDmlOrpMh0XQp3LZf__ATJ3o)"
-                    send_mattermost_msg "$msg"
+                    send_coreteam_reminder "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 3 ];  # Wednesday
                   then
                     msg="@anbox-core Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
-                    send_mattermost_msg "$msg"
+                    send_coreteam_reminder "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 4 ];  # Thursday
                   then
-                    msg="@anbox-team It's pulse demo time tomorrow. As usual everyone is welcome to demo their work, small or big. Please add yourself to the list BEFORE the meeting so we can start on time. You can also add highlights of this pulse's work too. Looking forward to all the great demos!"
+                    msg="@anbox-team It's pulse demo time tomorrow. As usual everyone is welcome to demo their work, small or big. Please add yourself to the list BEFORE the meeting so we can start on time. You can add highlights of this pulse's work too. Looking forward to all the great demos!"
                     send_pulse_demo_reminder "$msg"
                   fi
                   if [ $(($WEEK_DAY_NUM)) -eq 5 ];  # Friday
                   then
                     msg="@anbox-core Have you prepared for upcoming sprint planning?\n- Create stories for any ad-hoc work\n- Review the fix-version for your stories and if they are aligned with the target release\n- Account for time off\n- Assess if you have too much or too little work for the pulse"
-                    send_mattermost_msg "$msg"
+                    send_coreteam_reminder "$msg"
                     sleep 30
                     msg="@anbox-core Have you filled the pulse report?"
-                    send_mattermost_msg "$msg"
+                    send_coreteam_reminder "$msg"
                   fi
                 fi
 
