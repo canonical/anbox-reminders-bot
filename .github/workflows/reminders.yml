@@ -21,6 +21,14 @@ jobs:
                     -d "{\"text\": \"$msg\"}" \
                     "$WEBHOOK_URL"                
                 }
+
+                function send_pulse_demo_reminder(){
+                msg="$1"
+                curl -i -X POST \
+                    -H 'Content-Type:application/json' \
+                    -d "{\"text\": \"$msg\"}" \
+                    "$MM_PULSE_DEMO_WEBHOOK"   
+                }
                 
                 if [ $(($WEEK_NUM % 2)) -eq 0 ];  # First week of the pulse. The first pulse of 2025 started in an even week.
                 then
@@ -40,9 +48,14 @@ jobs:
                     msg="@anbox-core Have you prepared for upcoming backlog grooming?\n- Create stories for anticipated work\n- Fill out description and acceptance criteria\n- Add priority, fix-version and sprint, if known"
                     send_mattermost_msg "$msg"
                   fi
+                  if [ $(($WEEK_DAY_NUM)) -eq 4 ];  # Thursday
+                  then
+                    msg="@anbox-team It's pulse demo time tomorrow. As usual everyone is welcome to demo their work, small or big. Please add yourself to the list BEFORE the meeting so we can start on time. You can also add highlights of this pulse's work too. Looking forward to all the great demos!"
+                    send_mattermost_msg "$msg"
+                  fi
                   if [ $(($WEEK_DAY_NUM)) -eq 5 ];  # Friday
                   then
-                    msg="@anbox-core Have you prepared for upcoming sprint planning?\n- Create stories for any ad hoc work\n- Review the fix-version for your stories and if they are aligned with the target release\n- Account for time off\n- Assess if you have too much or too little work for the pulse"
+                    msg="@anbox-core Have you prepared for upcoming sprint planning?\n- Create stories for any ad-hoc work\n- Review the fix-version for your stories and if they are aligned with the target release\n- Account for time off\n- Assess if you have too much or too little work for the pulse"
                     send_mattermost_msg "$msg"
                     sleep 30
                     msg="@anbox-core Have you filled the pulse report?"
