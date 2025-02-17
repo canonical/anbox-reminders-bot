@@ -23,7 +23,7 @@ jobs:
                     "$MM_CORE_TEAM_WEBHOOK"                
                 }
 
-                function send_pulse_demo_reminder(){
+                function send_pulse_demo_reminder() {
                 msg="$1"
                 curl -i -X POST \
                     -H 'Content-Type:application/json' \
