@@ -12,7 +12,7 @@ jobs:
                 MM_CORE_TEAM_WEBHOOK: ${{ secrets.MM_CORE_TEAM_WEBHOOK }}
                 MM_PULSE_DEMO_WEBHOOK: ${{secrets.MM_PULSE_DEMO_WEBHOOK}}
               run: |
-                WEEK_NUM=`date +"%V"`
+                WEEK_NUM=`date +"%-V"`
                 WEEK_DAY_NUM=`date +"%u"`
                 
                 function send_coreteam_reminder() {
