@@ -1,5 +1,6 @@
 name: Send Anbox team reminders
 on:
+    workflow_dispatch:
     schedule:
         - cron: "41 8 * * 1,2,3,5"
 
